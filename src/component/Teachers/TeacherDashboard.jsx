@@ -1,14 +1,8 @@
 "use client"
 
-import React from "react"
 import { useState } from "react"
 import styles from "./Dashboard.module.css"
-<<<<<<< HEAD:src/pages/TeacherDashboard.jsx
-
-
-=======
 import Sidebar from "./TeacherSidebar"
->>>>>>> 03c1a59b66459197a8234a044a0fe4e31b0e9ae4:src/component/Teachers/TeacherDashboard.jsx
 const TeacherDashboard = () => {
   const [teacherData] = useState({
     name: "Mr.Rochak Shrestha",

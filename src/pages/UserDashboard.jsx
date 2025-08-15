@@ -1,12 +1,4 @@
-<<<<<<< HEAD
 "use client"
-=======
-import React, { useEffect, useState } from 'react';
-import { useAuth } from '../context/AuthContext';
-import { useNavigate, useLocation } from 'react-router-dom';
-import Sidebar from '../component/Teachers/TeacherSidebar';
-import axios from '../axiosInstance';
->>>>>>> 03c1a59b66459197a8234a044a0fe4e31b0e9ae4
 
 import { useState } from "react"
 import Sidebar from "../component/Sidebar"

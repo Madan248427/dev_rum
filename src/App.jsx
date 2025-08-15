@@ -4,21 +4,19 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 
+// Public Pages
 import HomePage from "./component/Homepage/Homepage";
-
-
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Unauthorized from "./pages/Unauthorized";
 
+// Role & Route Guards
 import PublicRoute from "./pages/PublicRoute";
 import ProtectedRoute from "./component/ProtectedRoute";
 import RedirectByRole from "./pages/RedirectByRole";
 
+// User Pages
 import UserDashboardPage from "./pages/UserDashboard";
-import TeacherDashboard from "./component/Teachers/TeacherDashboard";
-import ProfilePage from "./pages/ProfilePage";
-<<<<<<< HEAD
 import MyCoursesPage from "./pages/MyCoursesPage";
 import AssignmentsPage from "./pages/AssignmentsPage";
 import GradesPage from "./pages/GradesPage";
@@ -26,19 +24,22 @@ import SchedulePage from "./pages/SchedulePage";
 import LibraryPage from "./pages/LibraryPage";
 import NotificationsPage from "./pages/NotificationsPage";
 
-const App = () => {
-=======
+// Teacher Pages
+import TeacherDashboard from "./component/Teachers/TeacherDashboard";
 import TeacherSidebar from "./component/Teachers/TeacherSidebar";
 import AttendanceDashboard from "./component/Teachers/Attendance";
 import Calendar from "./component/Teachers/Calendar";
 import StudentManager from "./component/Teachers/Students";
-function App() {
->>>>>>> 03c1a59b66459197a8234a044a0fe4e31b0e9ae4
+
+// Shared
+import ProfilePage from "./pages/ProfilePage";
+
+const App = () => {
   return (
     <Router>
       <AuthProvider>
         <Routes>
-          {/* Public routes */}
+          {/* Public Routes */}
           <Route
             path="/"
             element={
@@ -64,20 +65,13 @@ function App() {
             }
           />
 
-          {/* Redirect based on role */}
+          {/* Redirect by Role */}
           <Route path="/redirect" element={<RedirectByRole />} />
 
-<<<<<<< HEAD
-          {/* Unauthorized page */}
-          <Route path="/unauthorized" element={<Unauthorized />} />
-
-          {/* Protected routes for users */}
-=======
           {/* Unauthorized */}
           <Route path="/unauthorized" element={<Unauthorized />} />
 
-          {/* User Dashboard */}
->>>>>>> 03c1a59b66459197a8234a044a0fe4e31b0e9ae4
+          {/* User Dashboard Routes */}
           <Route
             path="/user-dashboard"
             element={
@@ -86,8 +80,6 @@ function App() {
               </ProtectedRoute>
             }
           />
-
-          {/* Teacher Dashboard */}
           <Route
             path="/mycourse"
             element={
@@ -137,7 +129,7 @@ function App() {
             }
           />
 
-          {/* Protected routes for teachers */}
+          {/* Teacher Dashboard */}
           <Route
             path="/teacher-dashboard"
             element={
@@ -151,11 +143,6 @@ function App() {
               </ProtectedRoute>
             }
           />
-
-<<<<<<< HEAD
-          {/* Profile accessible for all authenticated users */}
-=======
-          {/* Teacher Attendance */}
           <Route
             path="/teacher/attendance"
             element={
@@ -164,13 +151,11 @@ function App() {
                   <TeacherSidebar />
                   <div style={{ flex: 1, padding: "20px", background: "#f5f5f5" }}>
                     <AttendanceDashboard />
-                 
                   </div>
                 </div>
               </ProtectedRoute>
             }
           />
-
           <Route
             path="/teacher/events"
             element={
@@ -178,33 +163,27 @@ function App() {
                 <div style={{ display: "flex", minHeight: "100vh" }}>
                   <TeacherSidebar />
                   <div style={{ flex: 1, padding: "20px", background: "#f5f5f5" }}>
-                   
                     <Calendar />
                   </div>
                 </div>
               </ProtectedRoute>
             }
           />
-
-
-    <Route
+          <Route
             path="/teacher/students"
             element={
               <ProtectedRoute requiredRole="teacher">
                 <div style={{ display: "flex", minHeight: "100vh" }}>
                   <TeacherSidebar />
                   <div style={{ flex: 1, padding: "20px", background: "#f5f5f5" }}>
-                  <StudentManager />
+                    <StudentManager />
                   </div>
                 </div>
               </ProtectedRoute>
             }
           />
 
-
-
-          {/* Profile */}
->>>>>>> 03c1a59b66459197a8234a044a0fe4e31b0e9ae4
+          {/* Profile for all authenticated users */}
           <Route
             path="/profile"
             element={
@@ -220,6 +199,6 @@ function App() {
       </AuthProvider>
     </Router>
   );
-}
+};
 
 export default App;
