@@ -1,0 +1,436 @@
+.libraryContainer {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f8fafc;
+  font-family: "Source Sans Pro", sans-serif;
+}
+
+.libraryContent {
+  flex: 1;
+  margin-left: 280px;
+  padding: 2rem;
+  max-width: calc(100vw - 280px);
+  overflow-x: hidden;
+}
+
+.header {
+  margin-bottom: 2rem;
+}
+
+.title {
+  font-family: "Playfair Display", serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #002147;
+  margin: 0 0 0.5rem 0;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  color: #64748b;
+  margin: 0;
+}
+
+/* Stats Grid */
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.statCard {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 33, 71, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border: 1px solid #e2e8f0;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.statCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 33, 71, 0.15);
+}
+
+.statIcon {
+  font-size: 2rem;
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #002147 0%, #003366 100%);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.statInfo h3 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #002147;
+  margin: 0;
+}
+
+.statInfo p {
+  font-size: 0.9rem;
+  color: #64748b;
+  margin: 0.25rem 0 0 0;
+}
+
+/* Sections */
+.section {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 33, 71, 0.1);
+  border: 1px solid #e2e8f0;
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.sectionTitle {
+  font-family: "Playfair Display", serif;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #002147;
+  margin: 0 0 1.5rem 0;
+}
+
+/* View Controls */
+.viewControls {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.viewButton {
+  padding: 0.5rem 1rem;
+  border: 2px solid #002147;
+  background: white;
+  color: #002147;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.viewButton:hover {
+  background: #002147;
+  color: white;
+}
+
+.viewButton.active {
+  background: #002147;
+  color: white;
+}
+
+/* Search Controls */
+.searchControls {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.searchBar {
+  flex: 1;
+  min-width: 300px;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.2s ease;
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: #002147;
+}
+
+.categoryFilter {
+  padding: 0.75rem 1rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 1rem;
+  background: white;
+  cursor: pointer;
+  min-width: 180px;
+}
+
+.categoryFilter:focus {
+  outline: none;
+  border-color: #002147;
+}
+
+/* Borrowed Books */
+.borrowedBooks {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.borrowedBookCard {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: #f8fafc;
+}
+
+.bookCover {
+  width: 60px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.bookInfo {
+  flex: 1;
+}
+
+.bookTitle {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #002147;
+  margin: 0 0 0.25rem 0;
+}
+
+.bookAuthor {
+  font-size: 0.9rem;
+  color: #64748b;
+  margin: 0 0 0.5rem 0;
+}
+
+.dueDate {
+  font-size: 0.9rem;
+  color: #d4af37;
+  font-weight: 500;
+  margin: 0 0 0.25rem 0;
+}
+
+.renewals {
+  font-size: 0.8rem;
+  color: #64748b;
+  margin: 0;
+}
+
+.renewButton {
+  padding: 0.5rem 1rem;
+  background: #d4af37;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+.renewButton:hover {
+  background: #b8941f;
+}
+
+/* Reserved Books */
+.reservedBooks {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.reservedBookCard {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: #f8fafc;
+}
+
+.reservationDate {
+  font-size: 0.9rem;
+  color: #64748b;
+  margin: 0 0 0.25rem 0;
+}
+
+.estimatedDate {
+  font-size: 0.9rem;
+  color: #d4af37;
+  font-weight: 500;
+  margin: 0;
+}
+
+.reservedStatus {
+  padding: 0.5rem 1rem;
+  background: #002147;
+  color: white;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* Books Grid */
+.booksGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.booksGrid.listView {
+  grid-template-columns: 1fr;
+}
+
+.bookCard {
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 1rem;
+  background: white;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.bookCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 33, 71, 0.1);
+}
+
+.listView .bookCard {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.listView .bookCover {
+  width: 60px;
+  height: 80px;
+}
+
+.bookDetails {
+  flex: 1;
+}
+
+.bookCategory {
+  font-size: 0.8rem;
+  color: #d4af37;
+  font-weight: 500;
+  margin: 0 0 1rem 0;
+}
+
+.bookActions {
+  margin-top: 1rem;
+}
+
+.reserveButton {
+  padding: 0.5rem 1rem;
+  background: #002147;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+  width: 100%;
+}
+
+.reserveButton:hover {
+  background: #003366;
+}
+
+.unavailableStatus {
+  padding: 0.5rem 1rem;
+  background: #ef4444;
+  color: white;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  display: inline-block;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .libraryContent {
+    margin-left: 0;
+    max-width: 100vw;
+    padding: 1rem;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .statsGrid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+  }
+
+  .statCard {
+    padding: 1rem;
+  }
+
+  .statIcon {
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+  }
+
+  .section {
+    padding: 1.5rem;
+  }
+
+  .sectionHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .searchControls {
+    flex-direction: column;
+  }
+
+  .searchBar {
+    min-width: auto;
+  }
+
+  .booksGrid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+
+  .borrowedBookCard,
+  .reservedBookCard {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .listView .bookCard {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .libraryContent {
+    padding: 0.5rem;
+  }
+
+  .statsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .booksGrid {
+    grid-template-columns: 1fr;
+  }
+}

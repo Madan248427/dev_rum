@@ -1,0 +1,392 @@
+.myCoursesContainer {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: "Source Sans Pro", sans-serif;
+  margin-left: 280px;
+  margin-right: auto;
+}
+
+.header {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.title {
+  font-family: "Playfair Display", serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #002147;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  color: #666;
+  margin: 0;
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.searchContainer {
+  position: relative;
+  flex: 1;
+  max-width: 400px;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1.2rem;
+  height: 1.2rem;
+  color: #666;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 0.75rem 1rem 0.75rem 3rem;
+  border: 2px solid #e1e5e9;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: #002147;
+  box-shadow: 0 0 0 3px rgba(0, 33, 71, 0.1);
+}
+
+.filters {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.filterSelect {
+  padding: 0.75rem 1rem;
+  border: 2px solid #e1e5e9;
+  border-radius: 8px;
+  font-size: 1rem;
+  background: white;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+}
+
+.filterSelect:focus {
+  outline: none;
+  border-color: #002147;
+}
+
+.viewToggle {
+  display: flex;
+  border: 2px solid #e1e5e9;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.viewBtn {
+  padding: 0.75rem;
+  border: none;
+  background: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.viewBtn:hover {
+  background: #f8f9fa;
+}
+
+.viewBtn.active {
+  background: #002147;
+  color: white;
+}
+
+.viewIcon {
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.statCard {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  border: 1px solid #e1e5e9;
+}
+
+.statCard h3 {
+  font-size: 0.9rem;
+  color: #666;
+  margin: 0 0 0.5rem 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.statCard p {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #002147;
+  margin: 0;
+}
+
+.coursesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.5rem;
+}
+
+.coursesGrid.listLayout {
+  grid-template-columns: 1fr;
+}
+
+.courseCard {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e1e5e9;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.courseCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.courseCard.listView {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1rem 1.5rem;
+}
+
+.courseHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.courseIcon {
+  width: 3rem;
+  height: 3rem;
+  background: #002147;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: white;
+}
+
+.progressBadge {
+  background: #d4af37;
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.courseContent {
+  flex: 1;
+}
+
+.courseTitle {
+  font-family: "Playfair Display", serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #002147;
+  margin: 0 0 0.5rem 0;
+  line-height: 1.3;
+}
+
+.courseInstructor {
+  color: #666;
+  margin: 0 0 0.25rem 0;
+  font-size: 0.9rem;
+}
+
+.courseCategory {
+  color: #d4af37;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin: 0 0 1rem 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.progressContainer {
+  margin: 1rem 0;
+}
+
+.progressBar {
+  width: 100%;
+  height: 6px;
+  background: #e1e5e9;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(90deg, #002147, #d4af37);
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+.courseMeta {
+  display: flex;
+  gap: 1rem;
+  margin: 1rem 0;
+  flex-wrap: wrap;
+}
+
+.metaItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.metaIcon {
+  width: 1rem;
+  height: 1rem;
+}
+
+.courseActions {
+  margin-top: 1rem;
+}
+
+.btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.btnPrimary {
+  background: #002147;
+  color: white;
+}
+
+.btnPrimary:hover {
+  background: #003366;
+  transform: translateY(-1px);
+}
+
+.btnSecondary {
+  background: #d4af37;
+  color: white;
+}
+
+.btnSecondary:hover {
+  background: #b8941f;
+  transform: translateY(-1px);
+}
+
+.emptyState {
+  text-align: center;
+  padding: 3rem;
+  color: #666;
+}
+
+.emptyIcon {
+  width: 4rem;
+  height: 4rem;
+  margin: 0 auto 1rem;
+  color: #ccc;
+}
+
+.emptyState h3 {
+  margin: 0 0 0.5rem 0;
+  color: #002147;
+}
+
+.emptyState p {
+  margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .myCoursesContainer {
+    padding: 1rem;
+    margin-left: auto;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .searchContainer {
+    max-width: none;
+  }
+
+  .filters {
+    justify-content: space-between;
+  }
+
+  .coursesGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .courseCard.listView {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .stats {
+    grid-template-columns: 1fr;
+  }
+
+  .courseMeta {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}

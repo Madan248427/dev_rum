@@ -1,0 +1,270 @@
+.pageContainer {
+  padding: 20px;
+  margin-left: 250px;
+  background-color: #f5f5f5;
+  min-height: 100vh;
+}
+.pageContainer {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f8fafc;
+}
+
+.noticeContainer {
+  flex: 1;
+  margin-left: 280px;
+  padding: 2rem;
+  max-width: calc(100vw - 280px);
+}
+
+.header {
+  margin-bottom: 2rem;
+}
+
+.title {
+  font-family: "Playfair Display", serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #002147;
+  margin: 0 0 0.5rem 0;
+}
+
+.subtitle {
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 1.1rem;
+  color: #64748b;
+  margin: 0;
+}
+
+.controls {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.searchContainer {
+  flex: 1;
+  min-width: 300px;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: #002147;
+  box-shadow: 0 0 0 3px rgba(0, 33, 71, 0.1);
+}
+
+.filterContainer {
+  min-width: 200px;
+}
+
+.filterSelect {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 1rem;
+  background-color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.filterSelect:focus {
+  outline: none;
+  border-color: #002147;
+  box-shadow: 0 0 0 3px rgba(0, 33, 71, 0.1);
+}
+
+.noticesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 1.5rem;
+}
+
+.noticeCard {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  border-left: 4px solid #002147;
+}
+
+.noticeCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.noticeHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+  gap: 1rem;
+}
+
+.noticeTitle {
+  flex: 1;
+}
+
+.noticeTitle h3 {
+  font-family: "Playfair Display", serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #002147;
+  margin: 0 0 0.5rem 0;
+  line-height: 1.4;
+}
+
+.priorityBadge {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.priorityHigh {
+  background-color: #fee2e2;
+  color: #dc2626;
+}
+
+.priorityMedium {
+  background-color: #fef3c7;
+  color: #d97706;
+}
+
+.priorityLow {
+  background-color: #dcfce7;
+  color: #16a34a;
+}
+
+.noticeDate {
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 0.875rem;
+  color: #64748b;
+  white-space: nowrap;
+}
+
+.noticeContent {
+  margin-bottom: 1rem;
+}
+
+.noticeContent p {
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #374151;
+  margin: 0;
+}
+
+.noticeFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1rem;
+  border-top: 1px solid #e5e7eb;
+  gap: 1rem;
+}
+
+.author {
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 0.875rem;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.category {
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 0.875rem;
+  color: #002147;
+  background-color: #f1f5f9;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  text-transform: capitalize;
+  font-weight: 500;
+}
+
+.noResults {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: #64748b;
+}
+
+.noResults h3 {
+  font-family: "Playfair Display", serif;
+  font-size: 1.5rem;
+  margin: 0 0 0.5rem 0;
+  color: #374151;
+}
+
+.noResults p {
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 1rem;
+  margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .noticeContainer {
+    margin-left: 0;
+    padding: 1rem;
+    max-width: 100vw;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .controls {
+    flex-direction: column;
+  }
+
+  .searchContainer,
+  .filterContainer {
+    min-width: auto;
+  }
+
+  .noticesGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .noticeHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .noticeFooter {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .noticeContainer {
+    padding: 0.75rem;
+  }
+
+  .title {
+    font-size: 1.75rem;
+  }
+
+  .noticeCard {
+    padding: 1rem;
+  }
+}

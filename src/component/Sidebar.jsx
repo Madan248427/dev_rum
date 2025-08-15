@@ -1,122 +1,73 @@
-"use client"
-import { useState, useEffect } from "react"
-import { Link, useLocation, useNavigate } from "react-router-dom"
-import { useAuth } from "../context/AuthContext"
-import axiosInstance from "../axiosInstance"
-import styles from "./sidebar.module.css"
+"use client";
+
+import { useState, useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+import axiosInstance from "../axiosInstance";
+import styles from "./sidebar.module.css";
 
 const Sidebar = () => {
-  const { user, logout } = useAuth()
-  const location = useLocation()
-  const navigate = useNavigate()
-  const [profileImage, setProfileImage] = useState(null)
-  const [imageLoading, setImageLoading] = useState(false)
+  const { user, logout } = useAuth();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [profileImage, setProfileImage] = useState(null);
+  const [imageLoading, setImageLoading] = useState(false);
 
   // Check if current path matches the link
-  const isActive = (path) => {
-    return location.pathname === path
-  }
+  const isActive = (path) => location.pathname === path;
 
+  // Fetch profile image
   useEffect(() => {
     const fetchProfileImage = async () => {
-      if (!user) return
-      setImageLoading(true)
+      if (!user) return;
+      setImageLoading(true);
       try {
-        const response = await axiosInstance.get("accounts/profile/")
+        const response = await axiosInstance.get("accounts/profile/");
         if (response.data.profile_image_url) {
-          setProfileImage(response.data.profile_image_url)
+          setProfileImage(response.data.profile_image_url);
         }
       } catch (error) {
-        console.log("No profile image found or error fetching profile:", error)
-        setProfileImage(null)
+        console.log("No profile image found or error fetching profile:", error);
+        setProfileImage(null);
       } finally {
-        setImageLoading(false)
+        setImageLoading(false);
       }
+    };
+
+    fetchProfileImage();
+  }, [user]);
+
+  // Logout function
+  const handleLogout = async () => {
+    try {
+      const { success } = await logout();
+      if (success) {
+        navigate("/", { replace: true });
+        window.location.reload();
+      }
+    } catch (error) {
+      console.error("Logout error:", error);
+      navigate("/", { replace: true });
+      window.location.reload();
     }
+  };
 
-    fetchProfileImage()
-  }, [user])
-
- const handleLogout = async () => {
-  try {
-    const { success } = await logout();
-
-    if (success) {
-      navigate("/login", { replace: true });
-      window.location.reload(); // optional
-    }
-  } catch (error) {
-    console.error("Logout error:", error);
-    navigate("/login", { replace: true });
-    window.location.reload();
-  }
-};
-
+  // Sidebar menu items (updated paths)
   const menuItems = [
-    {
-      path: "/dashboard",
-      icon: "📊",
-      label: "Dashboard",
-      description: "Overview & Analytics",
-    },
-    {
-      path: "/courses",
-      icon: "📚",
-      label: "My Courses",
-      description: "Enrolled Courses",
-    },
-    {
-      path: "/assignments",
-      icon: "📝",
-      label: "Assignments",
-      description: "Tasks & Submissions",
-    },
-    {
-      path: "/grades",
-      icon: "🎯",
-      label: "Grades",
-      description: "Academic Performance",
-    },
-    {
-      path: "/schedule",
-      icon: "📅",
-      label: "Schedule",
-      description: "Class Timetable",
-    },
-    {
-      path: "/library",
-      icon: "📖",
-      label: "Library",
-      description: "Resources & Materials",
-    },
-    {
-      path: "/notifications",
-      icon: "🔔",
-      label: "Notifications",
-      description: "Updates & Alerts",
-    },
-  ]
+    { path: "/user-dashboard", icon: "📊", label: "Dashboard", description: "Overview & Analytics" },
+    { path: "/mycourse", icon: "📚", label: "My Courses", description: "Enrolled Courses" },
+    { path: "/assignment", icon: "📝", label: "Assignments", description: "Tasks & Submissions" },
+    { path: "/grades", icon: "🎯", label: "Grades", description: "Academic Performance" },
+    { path: "/schedule", icon: "📅", label: "Schedule", description: "Class Timetable" },
+    { path: "/library", icon: "📖", label: "Library", description: "Resources & Materials" },
+    { path: "/notifications", icon: "🔔", label: "Notifications", description: "Updates & Alerts" },
+  ];
 
   const settingsItems = [
-    {
-      path: "/profile",
-      icon: "👤",
-      label: "Edit Profile",
-      description: "Personal Information",
-    },
-    {
-      path: "/settings",
-      icon: "⚙️",
-      label: "Settings",
-      description: "Preferences",
-    },
-    {
-      path: "/help",
-      icon: "❓",
-      label: "Help & Support",
-      description: "Get Assistance",
-    },
-  ]
+    { path: "/profile", icon: "👤", label: "Edit Profile", description: "Personal Information" },
+    { path: "/settings", icon: "⚙️", label: "Settings", description: "Preferences" },
+    { path: "/help", icon: "❓", label: "Help & Support", description: "Get Assistance" },
+  ];
 
   return (
     <aside className={styles.sidebar}>
@@ -124,19 +75,17 @@ const Sidebar = () => {
       <div className={styles.profileSection}>
         <div className={styles.profileImageContainer}>
           {imageLoading ? (
-            <div className={styles.profileImagePlaceholder}>
-              <span className={styles.profileInitial}>...</span>
-            </div>
+            <div className={styles.profileImagePlaceholder}>...</div>
           ) : profileImage ? (
             <img
-              src={profileImage || "/placeholder.svg"}
+              src={profileImage}
               alt="Profile"
               className={styles.profileImage}
               onError={() => setProfileImage(null)}
             />
           ) : (
             <div className={styles.profileImagePlaceholder}>
-              <span className={styles.profileInitial}>{user?.username?.charAt(0)?.toUpperCase() || "S"}</span>
+              {user?.username?.charAt(0)?.toUpperCase() || "S"}
             </div>
           )}
           <div className={styles.onlineIndicator}></div>
@@ -155,7 +104,10 @@ const Sidebar = () => {
           <ul className={styles.menuList}>
             {menuItems.map((item) => (
               <li key={item.path} className={styles.menuItem}>
-                <Link to={item.path} className={`${styles.menuLink} ${isActive(item.path) ? styles.active : ""}`}>
+                <Link
+                  to={item.path}
+                  className={`${styles.menuLink} ${isActive(item.path) ? styles.active : ""}`}
+                >
                   <span className={styles.menuIcon}>{item.icon}</span>
                   <div className={styles.menuContent}>
                     <span className={styles.menuLabel}>{item.label}</span>
@@ -172,7 +124,10 @@ const Sidebar = () => {
           <ul className={styles.menuList}>
             {settingsItems.map((item) => (
               <li key={item.path} className={styles.menuItem}>
-                <Link to={item.path} className={`${styles.menuLink} ${isActive(item.path) ? styles.active : ""}`}>
+                <Link
+                  to={item.path}
+                  className={`${styles.menuLink} ${isActive(item.path) ? styles.active : ""}`}
+                >
                   <span className={styles.menuIcon}>{item.icon}</span>
                   <div className={styles.menuContent}>
                     <span className={styles.menuLabel}>{item.label}</span>
@@ -194,7 +149,7 @@ const Sidebar = () => {
         </button>
       </div>
     </aside>
-  )
-}
+  );
+};
 
-export default Sidebar
+export default Sidebar;

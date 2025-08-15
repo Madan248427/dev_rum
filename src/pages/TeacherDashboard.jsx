@@ -1,8 +1,10 @@
 "use client"
 
+import React from "react"
 import { useState } from "react"
 import Sidebar from "../component/Sidebar"
 import styles from "./Dashboard.module.css"
+
 
 const TeacherDashboard = () => {
   const [teacherData, setTeacherData] = useState({
