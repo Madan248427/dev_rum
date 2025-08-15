@@ -106,7 +106,7 @@ const Sidebar = () => {
     },
     {
       path: "/settings",
-      icon: "⚙️",
+      icon: "⚙",
       label: "Settings",
       description: "Preferences",
     },
@@ -155,7 +155,7 @@ const Sidebar = () => {
           <ul className={styles.menuList}>
             {menuItems.map((item) => (
               <li key={item.path} className={styles.menuItem}>
-                <Link to={item.path} className={`${styles.menuLink} ${isActive(item.path) ? styles.active : ""}`}>
+                <Link to={item.path} className={${styles.menuLink} ${isActive(item.path) ? styles.active : ""}}>
                   <span className={styles.menuIcon}>{item.icon}</span>
                   <div className={styles.menuContent}>
                     <span className={styles.menuLabel}>{item.label}</span>
@@ -172,7 +172,7 @@ const Sidebar = () => {
           <ul className={styles.menuList}>
             {settingsItems.map((item) => (
               <li key={item.path} className={styles.menuItem}>
-                <Link to={item.path} className={`${styles.menuLink} ${isActive(item.path) ? styles.active : ""}`}>
+                <Link to={item.path} className={${styles.menuLink} ${isActive(item.path) ? styles.active : ""}}>
                   <span className={styles.menuIcon}>{item.icon}</span>
                   <div className={styles.menuContent}>
                     <span className={styles.menuLabel}>{item.label}</span>
@@ -197,4 +197,4 @@ const Sidebar = () => {
   )
 }
 
-export default Sidebar
+export default Sidebar 

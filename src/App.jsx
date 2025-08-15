@@ -13,15 +13,18 @@ import ProtectedRoute from "./component/ProtectedRoute";
 import RedirectByRole from "./pages/RedirectByRole";
 
 import UserDashboardPage from "./pages/UserDashboard";
-import TeacherDashboardPage from "./pages/TeacherDashboard";
+import TeacherDashboard from "./component/Teachers/TeacherDashboard";
 import ProfilePage from "./pages/ProfilePage";
-
-const App = () => {
+import TeacherSidebar from "./component/Teachers/TeacherSidebar";
+import AttendanceDashboard from "./component/Teachers/Attendance";
+import Calendar from "./component/Teachers/Calendar";
+import StudentManager from "./component/Teachers/Students";
+function App() {
   return (
     <Router>
       <AuthProvider>
         <Routes>
-          {/* Public routes wrapped in PublicRoute */}
+          {/* Public routes */}
           <Route
             path="/"
             element={
@@ -50,10 +53,10 @@ const App = () => {
           {/* Redirect based on role */}
           <Route path="/redirect" element={<RedirectByRole />} />
 
-          {/* Unauthorized access page */}
+          {/* Unauthorized */}
           <Route path="/unauthorized" element={<Unauthorized />} />
 
-          {/* Protected routes */}
+          {/* User Dashboard */}
           <Route
             path="/user-dashboard"
             element={
@@ -62,14 +65,71 @@ const App = () => {
               </ProtectedRoute>
             }
           />
+
+          {/* Teacher Dashboard */}
           <Route
             path="/teacher-dashboard"
             element={
               <ProtectedRoute requiredRole="teacher">
-                <TeacherDashboardPage />
+                <div style={{ display: "flex", minHeight: "100vh" }}>
+                  <TeacherSidebar />
+                  <div style={{ flex: 1, padding: "20px", background: "#f5f5f5" }}>
+                    <TeacherDashboard />
+                  </div>
+                </div>
               </ProtectedRoute>
             }
           />
+
+          {/* Teacher Attendance */}
+          <Route
+            path="/teacher/attendance"
+            element={
+              <ProtectedRoute requiredRole="teacher">
+                <div style={{ display: "flex", minHeight: "100vh" }}>
+                  <TeacherSidebar />
+                  <div style={{ flex: 1, padding: "20px", background: "#f5f5f5" }}>
+                    <AttendanceDashboard />
+                 
+                  </div>
+                </div>
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/teacher/events"
+            element={
+              <ProtectedRoute requiredRole="teacher">
+                <div style={{ display: "flex", minHeight: "100vh" }}>
+                  <TeacherSidebar />
+                  <div style={{ flex: 1, padding: "20px", background: "#f5f5f5" }}>
+                   
+                    <Calendar />
+                  </div>
+                </div>
+              </ProtectedRoute>
+            }
+          />
+
+
+    <Route
+            path="/teacher/students"
+            element={
+              <ProtectedRoute requiredRole="teacher">
+                <div style={{ display: "flex", minHeight: "100vh" }}>
+                  <TeacherSidebar />
+                  <div style={{ flex: 1, padding: "20px", background: "#f5f5f5" }}>
+                  <StudentManager />
+                  </div>
+                </div>
+              </ProtectedRoute>
+            }
+          />
+
+
+
+          {/* Profile */}
           <Route
             path="/profile"
             element={
@@ -79,12 +139,12 @@ const App = () => {
             }
           />
 
-          {/* Catch-all route */}
+          {/* Catch-all */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </AuthProvider>
     </Router>
   );
-};
+}
 
 export default App;

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate, useLocation } from 'react-router-dom';
-import Sidebar from '../component/Sidebar';
+import Sidebar from '../component/Teachers/TeacherSidebar';
 import axios from '../axiosInstance';
 
 const UserDashboard = () => {

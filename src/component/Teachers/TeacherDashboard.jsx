@@ -1,57 +1,56 @@
 "use client"
 
 import { useState } from "react"
-import Sidebar from "../component/Sidebar"
 import styles from "./Dashboard.module.css"
-
+import Sidebar from "./TeacherSidebar"
 const TeacherDashboard = () => {
-  const [teacherData, setTeacherData] = useState({
-    name: "Dr. Sarah Johnson",
-    email: "sarah.johnson@school.edu",
+  const [teacherData] = useState({
+    name: "Mr.Rochak Shrestha",
+    email: "rochakshrestha234@gmail.com",
     department: "Computer Science",
     courses: [
-      { id: 1, name: "Introduction to Programming", students: 45, code: "CS101" },
-      { id: 2, name: "Data Structures", students: 32, code: "CS201" },
-      { id: 3, name: "Web Development", students: 28, code: "CS301" },
+    { id: 1, name: "Introduction to Programming", students: 45, code: "CS101" },
+    { id: 2, name: "Data Structures", students: 32, code: "CS102" },
+    { id: 3, name: "Web Development", students: 28, code: "CS103" },
     ],
     recentAssignments: [
-      { id: 1, title: "Python Basics Quiz", course: "CS101", dueDate: "2024-01-15", submissions: 42 },
-      { id: 2, title: "Binary Trees Project", course: "CS201", dueDate: "2024-01-20", submissions: 28 },
-      { id: 3, title: "React Portfolio", course: "CS301", dueDate: "2024-01-25", submissions: 25 },
+    { id: 1, title: "Python Basics Quiz", course: "CS101", dueDate: "2024-01-15", submissions: 42 },
+    { id: 2, title: "Binary Trees Project", course: "CS102", dueDate: "2024-01-20", submissions: 28 },
+    { id: 3, title: "React Portfolio", course: "CS103", dueDate: "2024-01-25", submissions: 25 },
     ],
     pendingGrades: 15,
     totalStudents: 105,
-  })
+})
 
-  const [stats, setStats] = useState({
+const [stats] = useState({
     totalCourses: 3,
     totalStudents: 105,
     pendingGrades: 15,
     upcomingDeadlines: 5,
-  })
+})
 
-  return (
+return (
     <div className={styles.dashboardLayout}>
-      <Sidebar />
+    <Sidebar />
 
-      <div className={styles.mainContainer}>
+    <div className={styles.mainContainer}>
         <div className={styles.container}>
-          <div className={styles.header}>
+        <div className={styles.header}>
             <div className={styles.welcomeSection}>
-              <h1 className={styles.title}>Teacher Dashboard</h1>
-              <p className={styles.subtitle}>Welcome back, {teacherData.name}</p>
+            <h1 className={styles.title}>Teacher Dashboard</h1>
+            <p className={styles.subtitle}>Welcome back, {teacherData.name}</p>
             </div>
             <div className={styles.profileInfo}>
-              <div className={styles.profileImage}>
+            <div className={styles.profileImage}>
                 {teacherData.name
-                  .split(" ")
-                  .map((n) => n[0])
-                  .join("")}
-              </div>
-              <div className={styles.profileDetails}>
+                .split(" ")
+                .map((n) => n[0])
+                .join("")}
+            </div>
+            <div className={styles.profileDetails}>
                 <h3>{teacherData.name}</h3>
                 <p>{teacherData.department}</p>
-              </div>
+            </div>
             </div>
           </div>
 

@@ -1,0 +1,106 @@
+/* StudentManager.css */
+
+/* Container */
+.student-list-container {
+  width: 90%;
+  max-width: 1000px;
+  margin: 40px 40px 40px auto;
+  background: #44e6ff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  font-family: Arial, sans-serif;
+}
+
+/* Page Title */
+.student-list-container h3 {
+  margin-bottom: 20px;
+  color: #333;
+  text-align: center;
+}
+
+/* Search Bar */
+.search-bar {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.search-bar input {
+  width: 50%;
+  padding: 10px 15px;
+  border: 1px solid #ccc;
+  border-radius: 25px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.search-bar input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0,123,255,0.5);
+}
+
+/* Table */
+.students-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table-header, .table-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 2fr 1.5fr 1.5fr;
+  align-items: center;
+  padding: 10px 15px;
+}
+
+.table-header {
+  font-weight: bold;
+  background-color: #007bff;
+  color: white;
+  border-radius: 10px 10px 0 0;
+}
+
+.table-row {
+  border-bottom: 1px solid #ddd;
+}
+
+.table-row.even {
+  background-color: #f9f9f9;
+}
+
+.table-row.odd {
+  background-color: #fff;
+}
+
+.table-row:hover {
+  background-color: #f1f1f1;
+}
+
+/* Buttons */
+.actions button {
+  margin-right: 5px;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.edit-btn {
+  background-color: #ffc107;
+  color: #fff;
+}
+
+.edit-btn:hover {
+  background-color: #e0a800;
+}
+
+.delete-btn {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.delete-btn:hover {
+  background-color: #c82333;
+}
