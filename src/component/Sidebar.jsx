@@ -64,10 +64,32 @@ const Sidebar = () => {
   ];
 
   const settingsItems = [
+<<<<<<< HEAD
     { path: "/profile", icon: "👤", label: "Edit Profile", description: "Personal Information" },
     { path: "/settings", icon: "⚙️", label: "Settings", description: "Preferences" },
     { path: "/help", icon: "❓", label: "Help & Support", description: "Get Assistance" },
   ];
+=======
+    {
+      path: "/profile",
+      icon: "👤",
+      label: "Edit Profile",
+      description: "Personal Information",
+    },
+    {
+      path: "/settings",
+      icon: "⚙",
+      label: "Settings",
+      description: "Preferences",
+    },
+    {
+      path: "/help",
+      icon: "❓",
+      label: "Help & Support",
+      description: "Get Assistance",
+    },
+  ]
+>>>>>>> 03c1a59b66459197a8234a044a0fe4e31b0e9ae4
 
   return (
     <aside className={styles.sidebar}>
@@ -104,10 +126,14 @@ const Sidebar = () => {
           <ul className={styles.menuList}>
             {menuItems.map((item) => (
               <li key={item.path} className={styles.menuItem}>
+<<<<<<< HEAD
                 <Link
                   to={item.path}
                   className={`${styles.menuLink} ${isActive(item.path) ? styles.active : ""}`}
                 >
+=======
+                <Link to={item.path} className={${styles.menuLink} ${isActive(item.path) ? styles.active : ""}}>
+>>>>>>> 03c1a59b66459197a8234a044a0fe4e31b0e9ae4
                   <span className={styles.menuIcon}>{item.icon}</span>
                   <div className={styles.menuContent}>
                     <span className={styles.menuLabel}>{item.label}</span>
@@ -124,10 +150,14 @@ const Sidebar = () => {
           <ul className={styles.menuList}>
             {settingsItems.map((item) => (
               <li key={item.path} className={styles.menuItem}>
+<<<<<<< HEAD
                 <Link
                   to={item.path}
                   className={`${styles.menuLink} ${isActive(item.path) ? styles.active : ""}`}
                 >
+=======
+                <Link to={item.path} className={${styles.menuLink} ${isActive(item.path) ? styles.active : ""}}>
+>>>>>>> 03c1a59b66459197a8234a044a0fe4e31b0e9ae4
                   <span className={styles.menuIcon}>{item.icon}</span>
                   <div className={styles.menuContent}>
                     <span className={styles.menuLabel}>{item.label}</span>
@@ -152,4 +182,8 @@ const Sidebar = () => {
   );
 };
 
+<<<<<<< HEAD
 export default Sidebar;
+=======
+export default Sidebar 
+>>>>>>> 03c1a59b66459197a8234a044a0fe4e31b0e9ae4

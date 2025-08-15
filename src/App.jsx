@@ -16,8 +16,9 @@ import ProtectedRoute from "./component/ProtectedRoute";
 import RedirectByRole from "./pages/RedirectByRole";
 
 import UserDashboardPage from "./pages/UserDashboard";
-import TeacherDashboardPage from "./pages/TeacherDashboard";
+import TeacherDashboard from "./component/Teachers/TeacherDashboard";
 import ProfilePage from "./pages/ProfilePage";
+<<<<<<< HEAD
 import MyCoursesPage from "./pages/MyCoursesPage";
 import AssignmentsPage from "./pages/AssignmentsPage";
 import GradesPage from "./pages/GradesPage";
@@ -26,6 +27,13 @@ import LibraryPage from "./pages/LibraryPage";
 import NotificationsPage from "./pages/NotificationsPage";
 
 const App = () => {
+=======
+import TeacherSidebar from "./component/Teachers/TeacherSidebar";
+import AttendanceDashboard from "./component/Teachers/Attendance";
+import Calendar from "./component/Teachers/Calendar";
+import StudentManager from "./component/Teachers/Students";
+function App() {
+>>>>>>> 03c1a59b66459197a8234a044a0fe4e31b0e9ae4
   return (
     <Router>
       <AuthProvider>
@@ -59,10 +67,17 @@ const App = () => {
           {/* Redirect based on role */}
           <Route path="/redirect" element={<RedirectByRole />} />
 
+<<<<<<< HEAD
           {/* Unauthorized page */}
           <Route path="/unauthorized" element={<Unauthorized />} />
 
           {/* Protected routes for users */}
+=======
+          {/* Unauthorized */}
+          <Route path="/unauthorized" element={<Unauthorized />} />
+
+          {/* User Dashboard */}
+>>>>>>> 03c1a59b66459197a8234a044a0fe4e31b0e9ae4
           <Route
             path="/user-dashboard"
             element={
@@ -71,6 +86,8 @@ const App = () => {
               </ProtectedRoute>
             }
           />
+
+          {/* Teacher Dashboard */}
           <Route
             path="/mycourse"
             element={
@@ -125,12 +142,69 @@ const App = () => {
             path="/teacher-dashboard"
             element={
               <ProtectedRoute requiredRole="teacher">
-                <TeacherDashboardPage />
+                <div style={{ display: "flex", minHeight: "100vh" }}>
+                  <TeacherSidebar />
+                  <div style={{ flex: 1, padding: "20px", background: "#f5f5f5" }}>
+                    <TeacherDashboard />
+                  </div>
+                </div>
               </ProtectedRoute>
             }
           />
 
+<<<<<<< HEAD
           {/* Profile accessible for all authenticated users */}
+=======
+          {/* Teacher Attendance */}
+          <Route
+            path="/teacher/attendance"
+            element={
+              <ProtectedRoute requiredRole="teacher">
+                <div style={{ display: "flex", minHeight: "100vh" }}>
+                  <TeacherSidebar />
+                  <div style={{ flex: 1, padding: "20px", background: "#f5f5f5" }}>
+                    <AttendanceDashboard />
+                 
+                  </div>
+                </div>
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/teacher/events"
+            element={
+              <ProtectedRoute requiredRole="teacher">
+                <div style={{ display: "flex", minHeight: "100vh" }}>
+                  <TeacherSidebar />
+                  <div style={{ flex: 1, padding: "20px", background: "#f5f5f5" }}>
+                   
+                    <Calendar />
+                  </div>
+                </div>
+              </ProtectedRoute>
+            }
+          />
+
+
+    <Route
+            path="/teacher/students"
+            element={
+              <ProtectedRoute requiredRole="teacher">
+                <div style={{ display: "flex", minHeight: "100vh" }}>
+                  <TeacherSidebar />
+                  <div style={{ flex: 1, padding: "20px", background: "#f5f5f5" }}>
+                  <StudentManager />
+                  </div>
+                </div>
+              </ProtectedRoute>
+            }
+          />
+
+
+
+          {/* Profile */}
+>>>>>>> 03c1a59b66459197a8234a044a0fe4e31b0e9ae4
           <Route
             path="/profile"
             element={
@@ -140,12 +214,12 @@ const App = () => {
             }
           />
 
-          {/* Catch-all route */}
+          {/* Catch-all */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </AuthProvider>
     </Router>
   );
-};
+}
 
 export default App;

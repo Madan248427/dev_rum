@@ -78,9 +78,15 @@
   transform: translateY(-2px);
 }
 
+<<<<<<< HEAD:src/pages/Dashboard.module.css
 .statIcon {
   font-size: 2rem;
   opacity: 0.9;
+=======
+/* Added card component styles to replace shadcn /ui Card */
+.cardHeader {
+  margin-bottom: 1rem;
+>>>>>>> 03c1a59b66459197a8234a044a0fe4e31b0e9ae4:src/component/Teachers/Dashboard.module.css
 }
 
 .statContent {
