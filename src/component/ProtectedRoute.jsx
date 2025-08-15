@@ -12,7 +12,6 @@ const ProtectedRoute = ({ children, requiredRole }) => {
     return <Navigate to="/" replace state={{ fromProtected: true }} />;
   }
 
-  // Normalize role field: check both Role and role keys just in case
   const userRole = (user.Role ?? user.role ?? "user").toLowerCase();
 
   if (requiredRole && userRole !== requiredRole.toLowerCase()) {

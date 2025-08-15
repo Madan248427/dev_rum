@@ -19,23 +19,26 @@ export const AuthProvider = ({ children }) => {
   const [refreshing, setRefreshing] = useState(false);
   const [hasTriedRefresh, setHasTriedRefresh] = useState(false);
 
-  const fetchUser = useCallback(async () => {
-    try {
-      const res = await axiosInstance.get("/accounts/user/");
-      const userData = res.data;
-      if (userData.Role) {
-        userData.role = userData.Role.toLowerCase();
-      }
-      setUser(userData);
-      setLoading(false);
-      sessionStorage.setItem("hasLoggedIn", "true");
-      return true;
-    } catch {
-      setUser(null);
-      setLoading(false);
-      return false;
+ const fetchUser = useCallback(async () => {
+  const hasLoggedIn = sessionStorage.getItem("hasLoggedIn") === "true";
+  if (!hasLoggedIn) return null;
+
+  try {
+    const res = await axiosInstance.get("/accounts/user/");
+    const userData = res.data;
+    if (userData.Role) {
+      userData.role = userData.Role.toLowerCase();
     }
-  }, []);
+    setUser(userData);
+    setLoading(false);
+    return userData;
+  } catch {
+    setUser(null);
+    setLoading(false);
+    return null;
+  }
+}, []);
+
 
   const refreshToken = useCallback(async () => {
     const hasLoggedIn = sessionStorage.getItem("hasLoggedIn") === "true";
@@ -98,30 +101,38 @@ export const AuthProvider = ({ children }) => {
     initAuth();
   }, [fetchUser, refreshToken]);
 
-  const login = async (email, password) => {
-    try {
-      const res = await axiosInstance.post("/accounts/login/", { email, password });
-      sessionStorage.setItem("hasLoggedIn", "true");
-      setHasTriedRefresh(false);
-      await fetchUser();
-      return { success: true, user };
-    } catch {
-      return { success: false, error: "Invalid credentials" };
-    }
-  };
+const login = async (email, password) => {
+  try {
+    await axiosInstance.post("/accounts/login/", { email, password });
+    sessionStorage.setItem("hasLoggedIn", "true");
+    setHasTriedRefresh(false);
 
-  const logout = async () => {
-    try {
-      await axiosInstance.post("/accounts/logout/");
-    } catch (err) {
-      console.error("Logout failed", err);
-    } finally {
-      setUser(null);
-      sessionStorage.removeItem("hasLoggedIn");
-      setHasTriedRefresh(false);
-      navigate("/login");
+    const fetchedUser = await fetchUser(); // ✅ Use this instead of res.data
+    if (!fetchedUser) {
+      return { success: false, error: "Failed to fetch user after login." };
     }
-  };
+
+    return { success: true, user: fetchedUser }; // ✅ Return actual user object
+  } catch {
+    return { success: false, error: "Invalid credentials" };
+  }
+};
+
+const logout = async () => {
+  try {
+    await axiosInstance.post("/accounts/logout/");
+    return { success: true };
+  } catch (err) {
+    console.error("Logout failed", err);
+    return { success: false, error: err };
+  } finally {
+    setUser(null);
+    sessionStorage.removeItem("hasLoggedIn");
+    setHasTriedRefresh(false);
+    navigate("/login"); // You can optionally move this out if handled in Sidebar
+  }
+};
+
 
   const register = async (userData) => {
     try {

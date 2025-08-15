@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-  baseURL: 'https://246c1defdc74.ngrok-free.app/api/',
-  withCredentials: true, // Ensures cookies are sent with requests
+  baseURL: 'https://67ef861885e4.ngrok-free.app/api/',
+  withCredentials: true, 
   headers: {
     'Content-Type': 'application/json',
     Accept: 'application/json',

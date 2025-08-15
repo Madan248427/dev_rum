@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import axiosInstance from "../axiosInstance"
 import { useNavigate } from "react-router-dom"
 import { useAuth } from "../context/AuthContext"
+import styles from "./ProfilePage.module.css"
 
 const ProfilePage = () => {
   const { user } = useAuth()
@@ -29,8 +30,6 @@ const ProfilePage = () => {
   const [isEditing, setIsEditing] = useState(false)
 
   const navigate = useNavigate()
-
-  // Add this right after the navigate declaration
   const [hasFetched, setHasFetched] = useState(false)
 
   const fetchData = async () => {
@@ -72,7 +71,6 @@ const ProfilePage = () => {
       } catch (profileError) {
         console.log("Profile fetch error:", profileError.response?.status, profileError.response?.data)
 
-        // Handle ONLY 404 as "no profile exists"
         if (profileError.response?.status === 404) {
           console.log("No profile found - showing create form")
           setProfileExists(false)
@@ -86,7 +84,6 @@ const ProfilePage = () => {
           })
           setPreview(null)
         } else {
-          // For any other profile error, show error but don't redirect
           console.error("Unexpected profile error:", profileError)
           setError(`Profile error: ${profileError.response?.data?.detail || profileError.message}`)
           setProfileExists(false)
@@ -98,20 +95,17 @@ const ProfilePage = () => {
     } catch (userError) {
       console.error("User fetch error:", userError.response?.status, userError.response?.data)
 
-      // Only redirect on 401 (authentication failure)
       if (userError.response?.status === 401) {
         console.log("Authentication failed - redirecting to login")
         navigate("/")
         return
       }
 
-      // For other user errors, show error message
       setError(`Failed to fetch user data: ${userError.response?.data?.detail || userError.message}`)
       setLoading(false)
     }
   }
 
-  // Update the useEffect to prevent multiple calls
   useEffect(() => {
     if (!hasFetched) {
       setHasFetched(true)
@@ -165,13 +159,11 @@ const ProfilePage = () => {
       })
 
       if (profileExists) {
-        // PUT update profile
         await axiosInstance.put("accounts/profile/", formData, {
           headers: { "Content-Type": "multipart/form-data" },
         })
         setSuccess("Profile updated successfully!")
       } else {
-        // POST create profile
         await axiosInstance.post("accounts/profile/", formData, {
           headers: { "Content-Type": "multipart/form-data" },
         })
@@ -180,7 +172,7 @@ const ProfilePage = () => {
       }
 
       setIsEditing(false)
-      setUserData((prev) => ({ ...prev, password: "" })) // Clear password input
+      setUserData((prev) => ({ ...prev, password: "" }))
     } catch (err) {
       console.error("Update error:", err.response?.data || err.message)
       setError("Failed to save profile. Please try again.")
@@ -195,58 +187,38 @@ const ProfilePage = () => {
 
   const handleCancel = () => {
     if (!profileExists) {
-      // If no profile exists, we can't cancel to a view mode
       return
     }
     setIsEditing(false)
     setSuccess("")
     setError("")
-    // Reset form data
     setUserData((prev) => ({ ...prev, password: "" }))
   }
 
   if (loading) {
     return (
-      <div style={{ maxWidth: 600, margin: "auto", padding: 20, textAlign: "center" }}>
-        <div>Loading profile...</div>
+      <div className={styles.container}>
+        <div className={styles.loading}>Loading profile...</div>
       </div>
     )
   }
 
   return (
-    <div style={{ maxWidth: 600, margin: "auto", padding: 20 }}>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>
-        <h2>{profileExists ? "Profile" : "Create Profile"}</h2>
-        <button
-          onClick={() => navigate(-1)}
-          style={{
-            padding: "8px 16px",
-            backgroundColor: "#f5f5f5",
-            border: "1px solid #ddd",
-            borderRadius: 4,
-            cursor: "pointer",
-          }}
-        >
+    <div className={styles.container}>
+      <div className={styles.header}>
+        <h2 className={styles.title}>{profileExists ? "Profile" : "Create Profile"}</h2>
+        <button onClick={() => navigate(-1)} className={styles.backButton}>
           Back
         </button>
       </div>
 
-      {error && (
-        <div style={{ color: "red", marginBottom: 10, padding: 10, backgroundColor: "#fee", borderRadius: 4 }}>
-          {error}
-        </div>
-      )}
-      {success && (
-        <div style={{ color: "green", marginBottom: 10, padding: 10, backgroundColor: "#efe", borderRadius: 4 }}>
-          {success}
-        </div>
-      )}
+      {error && <div className={styles.errorMessage}>{error}</div>}
+      {success && <div className={styles.successMessage}>{success}</div>}
 
       {!profileExists ? (
-        // No profile exists - show create form
         <div>
-          <p style={{ marginBottom: 20, color: "#666" }}>No profile found. Please create your profile below.</p>
-          <form onSubmit={handleSubmit} encType="multipart/form-data">
+          <p className={styles.infoMessage}>No profile found. Please create your profile below.</p>
+          <form onSubmit={handleSubmit} encType="multipart/form-data" className={styles.form}>
             <ProfileForm
               userData={userData}
               profileData={profileData}
@@ -255,46 +227,24 @@ const ProfilePage = () => {
               handleProfileChange={handleProfileChange}
               isCreating={true}
             />
-            <div style={{ marginTop: 20 }}>
-              <button
-                type="submit"
-                style={{
-                  padding: "10px 20px",
-                  backgroundColor: "#007bff",
-                  color: "white",
-                  border: "none",
-                  borderRadius: 4,
-                  cursor: "pointer",
-                }}
-              >
+            <div className={styles.buttonContainer}>
+              <button type="submit" className={styles.primaryButton}>
                 Create Profile
               </button>
             </div>
           </form>
         </div>
       ) : !isEditing ? (
-        // Profile exists and not editing - show read-only view
         <div>
           <ProfileView userData={userData} profileData={profileData} preview={preview} />
-          <div style={{ marginTop: 20 }}>
-            <button
-              onClick={handleEdit}
-              style={{
-                padding: "10px 20px",
-                backgroundColor: "#28a745",
-                color: "white",
-                border: "none",
-                borderRadius: 4,
-                cursor: "pointer",
-              }}
-            >
+          <div className={styles.buttonContainer}>
+            <button onClick={handleEdit} className={styles.primaryButton}>
               Edit Profile
             </button>
           </div>
         </div>
       ) : (
-        // Profile exists and editing - show edit form
-        <form onSubmit={handleSubmit} encType="multipart/form-data">
+        <form onSubmit={handleSubmit} encType="multipart/form-data" className={styles.form}>
           <ProfileForm
             userData={userData}
             profileData={profileData}
@@ -303,32 +253,11 @@ const ProfilePage = () => {
             handleProfileChange={handleProfileChange}
             isCreating={false}
           />
-          <div style={{ marginTop: 20, display: "flex", gap: 10 }}>
-            <button
-              type="submit"
-              style={{
-                padding: "10px 20px",
-                backgroundColor: "#007bff",
-                color: "white",
-                border: "none",
-                borderRadius: 4,
-                cursor: "pointer",
-              }}
-            >
+          <div className={styles.buttonGroup}>
+            <button type="submit" className={styles.primaryButton}>
               Save Changes
             </button>
-            <button
-              type="button"
-              onClick={handleCancel}
-              style={{
-                padding: "10px 20px",
-                backgroundColor: "#6c757d",
-                color: "white",
-                border: "none",
-                borderRadius: 4,
-                cursor: "pointer",
-              }}
-            >
+            <button type="button" onClick={handleCancel} className={styles.secondaryButton}>
               Cancel
             </button>
           </div>
@@ -341,69 +270,49 @@ const ProfilePage = () => {
 // Component for displaying profile in read-only mode
 const ProfileView = ({ userData, profileData, preview }) => {
   return (
-    <div style={{ backgroundColor: "#f8f9fa", padding: 20, borderRadius: 8 }}>
+    <div className={styles.profileCard}>
       {preview && (
-        <div style={{ textAlign: "center", marginBottom: 20 }}>
-          <img
-            src={preview || "/placeholder.svg"}
-            alt="Profile"
-            style={{
-              width: 120,
-              height: 120,
-              objectFit: "cover",
-              borderRadius: "50%",
-              border: "3px solid #dee2e6",
-            }}
-          />
+        <div className={styles.imageContainer}>
+          <img src={preview || "/placeholder.svg"} alt="Profile" className={styles.profileImage} />
         </div>
       )}
 
-      <div style={{ display: "grid", gap: 15 }}>
-        <div>
+      <div className={styles.profileInfo}>
+        <div className={styles.infoItem}>
           <strong>Username:</strong>
-          <div style={{ marginTop: 5, padding: 8, backgroundColor: "white", borderRadius: 4 }}>{userData.username}</div>
+          <div className={styles.infoValue}>{userData.username}</div>
         </div>
 
-        <div>
+        <div className={styles.infoItem}>
           <strong>Email:</strong>
-          <div style={{ marginTop: 5, padding: 8, backgroundColor: "white", borderRadius: 4 }}>{userData.email}</div>
+          <div className={styles.infoValue}>{userData.email}</div>
         </div>
 
         {profileData.phone_number && (
-          <div>
+          <div className={styles.infoItem}>
             <strong>Phone Number:</strong>
-            <div style={{ marginTop: 5, padding: 8, backgroundColor: "white", borderRadius: 4 }}>
-              {profileData.phone_number}
-            </div>
+            <div className={styles.infoValue}>{profileData.phone_number}</div>
           </div>
         )}
 
         {profileData.location && (
-          <div>
+          <div className={styles.infoItem}>
             <strong>Location:</strong>
-            <div style={{ marginTop: 5, padding: 8, backgroundColor: "white", borderRadius: 4 }}>
-              {profileData.location}
-            </div>
+            <div className={styles.infoValue}>{profileData.location}</div>
           </div>
         )}
 
         {profileData.birth_date && (
-          <div>
+          <div className={styles.infoItem}>
             <strong>Birth Date:</strong>
-            <div style={{ marginTop: 5, padding: 8, backgroundColor: "white", borderRadius: 4 }}>
-              {new Date(profileData.birth_date).toLocaleDateString()}
-            </div>
+            <div className={styles.infoValue}>{new Date(profileData.birth_date).toLocaleDateString()}</div>
           </div>
         )}
 
         {profileData.bio && (
-          <div>
+          <div className={styles.infoItem}>
             <strong>Bio:</strong>
-            <div
-              style={{ marginTop: 5, padding: 8, backgroundColor: "white", borderRadius: 4, whiteSpace: "pre-wrap" }}
-            >
-              {profileData.bio}
-            </div>
+            <div className={styles.bioValue}>{profileData.bio}</div>
           </div>
         )}
       </div>
@@ -413,164 +322,112 @@ const ProfileView = ({ userData, profileData, preview }) => {
 
 // Component for profile form (create/edit)
 const ProfileForm = ({ userData, profileData, preview, handleUserChange, handleProfileChange, isCreating }) => {
+  const handleImageClick = () => {
+    document.getElementById("profile_image").click()
+  }
+
   return (
-    <div style={{ display: "grid", gap: 15 }}>
-      {/* User Info */}
-      <div>
-        <label style={{ fontWeight: "bold", display: "block", marginBottom: 5 }}>Email:</label>
+    <div className={styles.formGrid}>
+      <div className={styles.inputGroup}>
+        <label className={styles.label}>Email:</label>
         <input
           type="email"
           name="email"
           value={userData.email}
           onChange={handleUserChange}
           required
-          style={{
-            width: "100%",
-            padding: 8,
-            border: "1px solid #ddd",
-            borderRadius: 4,
-            fontSize: 14,
-          }}
+          className={styles.input}
         />
       </div>
 
-      <div>
-        <label style={{ fontWeight: "bold", display: "block", marginBottom: 5 }}>Username:</label>
+      <div className={styles.inputGroup}>
+        <label className={styles.label}>Username:</label>
         <input
           type="text"
           name="username"
           value={userData.username}
           onChange={handleUserChange}
           required
-          style={{
-            width: "100%",
-            padding: 8,
-            border: "1px solid #ddd",
-            borderRadius: 4,
-            fontSize: 14,
-          }}
+          className={styles.input}
         />
       </div>
 
-      <div>
-        <label style={{ fontWeight: "bold", display: "block", marginBottom: 5 }}>
-          Password {!isCreating && "(leave blank to keep current)"}:
-        </label>
+      <div className={styles.inputGroup}>
+        <label className={styles.label}>Password {!isCreating && "(leave blank to keep current)"}:</label>
         <input
           type="password"
           name="password"
           value={userData.password}
           onChange={handleUserChange}
-          style={{
-            width: "100%",
-            padding: 8,
-            border: "1px solid #ddd",
-            borderRadius: 4,
-            fontSize: 14,
-          }}
+          className={styles.input}
         />
       </div>
 
-      {/* Profile Info */}
-      <div>
-        <label style={{ fontWeight: "bold", display: "block", marginBottom: 5 }}>Phone Number:</label>
+      <div className={styles.inputGroup}>
+        <label className={styles.label}>Phone Number:</label>
         <input
           type="text"
           name="phone_number"
           value={profileData.phone_number}
           onChange={handleProfileChange}
-          style={{
-            width: "100%",
-            padding: 8,
-            border: "1px solid #ddd",
-            borderRadius: 4,
-            fontSize: 14,
-          }}
+          className={styles.input}
         />
       </div>
 
-      <div>
-        <label style={{ fontWeight: "bold", display: "block", marginBottom: 5 }}>Location:</label>
+      <div className={styles.inputGroup}>
+        <label className={styles.label}>Location:</label>
         <input
           type="text"
           name="location"
           value={profileData.location}
           onChange={handleProfileChange}
-          style={{
-            width: "100%",
-            padding: 8,
-            border: "1px solid #ddd",
-            borderRadius: 4,
-            fontSize: 14,
-          }}
+          className={styles.input}
         />
       </div>
 
-      <div>
-        <label style={{ fontWeight: "bold", display: "block", marginBottom: 5 }}>Birth Date:</label>
+      <div className={styles.inputGroup}>
+        <label className={styles.label}>Birth Date:</label>
         <input
           type="date"
           name="birth_date"
           value={profileData.birth_date}
           onChange={handleProfileChange}
-          style={{
-            width: "100%",
-            padding: 8,
-            border: "1px solid #ddd",
-            borderRadius: 4,
-            fontSize: 14,
-          }}
+          className={styles.input}
         />
       </div>
 
-      <div>
-        <label style={{ fontWeight: "bold", display: "block", marginBottom: 5 }}>Bio:</label>
+      <div className={styles.inputGroup}>
+        <label className={styles.label}>Bio:</label>
         <textarea
           name="bio"
           value={profileData.bio}
           onChange={handleProfileChange}
           rows={4}
-          style={{
-            width: "100%",
-            padding: 8,
-            border: "1px solid #ddd",
-            borderRadius: 4,
-            fontSize: 14,
-            resize: "vertical",
-          }}
+          className={styles.textarea}
+          placeholder="Tell us about yourself..."
         />
       </div>
 
-      <div>
-        <label style={{ fontWeight: "bold", display: "block", marginBottom: 5 }}>Profile Image:</label>
-        <input
-          type="file"
-          name="profile_image"
-          accept="image/*"
-          onChange={handleProfileChange}
-          style={{
-            width: "100%",
-            padding: 8,
-            border: "1px solid #ddd",
-            borderRadius: 4,
-            fontSize: 14,
-          }}
-        />
-        {preview && (
-          <div style={{ marginTop: 10, textAlign: "center" }}>
-            <img
-              src={preview || "/placeholder.svg"}
-              alt="Profile Preview"
-              style={{
-                width: 100,
-                height: 100,
-                objectFit: "cover",
-                borderRadius: "50%",
-                border: "2px solid #dee2e6",
-              }}
-            />
-          </div>
-        )}
+      <div className={styles.imageUploadSection}>
+        <label className={styles.label}>Profile Image:</label>
+        <div className={styles.imageUpload}>
+          <input
+            type="file"
+            name="profile_image"
+            id="profile_image"
+            accept="image/*"
+            onChange={handleProfileChange}
+            className={styles.fileInput}
+          />
+          <button type="button" onClick={handleImageClick} className={styles.fileLabel}>
+            {preview ? "Change Image" : "Choose Image"}
+          </button>
+          {preview && (
+            <div className={styles.imagePreview}>
+              <img src={preview || "/placeholder.svg"} alt="Profile Preview" className={styles.previewImage} />
+            </div>
+          )}
+        </div>
       </div>
     </div>
   )

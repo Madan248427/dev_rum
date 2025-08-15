@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
@@ -5,8 +7,9 @@ import { AuthProvider } from "./context/AuthContext";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Unauthorized from "./pages/Unauthorized";
-import ProtectedRoute from "./component/ProtectedRoute";
 
+import PublicRoute from "./pages/PublicRoute";
+import ProtectedRoute from "./component/ProtectedRoute";
 import RedirectByRole from "./pages/RedirectByRole";
 
 import UserDashboardPage from "./pages/UserDashboard";
@@ -18,16 +21,39 @@ const App = () => {
     <Router>
       <AuthProvider>
         <Routes>
-          {/* Public Routes */}
-          <Route path="/" element={<Login />} />
-          <Route path="/login" element={<Login />} /> {/* optional explicit login path */}
-          <Route path="/register" element={<Register />} />
+          {/* Public routes wrapped in PublicRoute */}
+          <Route
+            path="/"
+            element={
+              <PublicRoute>
+                <Login />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              <PublicRoute>
+                <Login />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="/register"
+            element={
+              <PublicRoute>
+                <Register />
+              </PublicRoute>
+            }
+          />
+
+          {/* Redirect based on role */}
           <Route path="/redirect" element={<RedirectByRole />} />
 
-          {/* Unauthorized page for role-based denial only */}
+          {/* Unauthorized access page */}
           <Route path="/unauthorized" element={<Unauthorized />} />
 
-          {/* Protected Routes */}
+          {/* Protected routes */}
           <Route
             path="/user-dashboard"
             element={
@@ -53,7 +79,7 @@ const App = () => {
             }
           />
 
-          {/* Catch-all Route - redirect to login (not unauthorized) */}
+          {/* Catch-all route */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </AuthProvider>
