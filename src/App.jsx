@@ -5,12 +5,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-d
 import { AuthProvider } from "./context/AuthContext";
 
 import HomePage from "./component/Homepage/Homepage";
-import DashboardContent from "./component/Users/DashboardContent";
-import AttendanceContent from "./component/Users/AttendanceContent";
-import ComplaintsContent from "./component/Users/ComplaintContent";
-import NoticesContent from "./component/Users/NoticesContent";
-import TimetableContent from "./component/Users/TimetableContent";
-import WeeklyClassesContent from "./component/Users/WeeklyClassesContent";
+
 
 import Login from "./pages/Login";
 import Register from "./pages/Register";
